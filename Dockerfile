@@ -22,6 +22,8 @@ WORKDIR /home/guard/ai
 RUN git clone https://${GH_TOKEN}@github.com/ahcheriet/${GH_REPO}.git .
 
 # Install dependencies
+
+ENV PATH=/home/guard/.local/bin:$PATH
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port
