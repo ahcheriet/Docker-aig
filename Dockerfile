@@ -7,11 +7,13 @@ ARG GH_TOKEN
 ARG GH_REPO
 
 # Clone the private repository
-RUN apt-get update && apt-get install -y git
+RUN apt-get update 
+
+RUN apt-get install -y git
 
 RUN apt-get install -y uvicorn
 
-RUN apt-get remove -y git && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m guard 
 USER guard
