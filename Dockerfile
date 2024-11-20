@@ -4,13 +4,13 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Build argument for GitHub credentials
-ARG GITHUB_USER
-ARG GITHUB_TOKEN
-ARG GITHUB_REPO
+ARG GH_USER
+ARG GH_TOKEN
+ARG GH_REPO
 
 # Clone the private repository
 RUN apt-get update && apt-get install -y git \
-    && git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/ahcheriet/${GITHUB_REPO}.git . \
+    && git clone https://${GH_USER}:${GH_TOKEN}@github.com/ahcheriet/${GH_REPO}.git . \
     && apt-get remove -y git && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
