@@ -12,7 +12,8 @@ RUN apt-get update
 RUN apt-get install -y git
 
 RUN apt-get install -y uvicorn \
-                       libgl1-mesa-glx 
+                       libgl1-mesa-glx \
+		       libglib2.0-0
 
 
 RUN apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
