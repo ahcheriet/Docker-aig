@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
 ENV POSTGRES_USER=video_user
 ENV POSTGRES_PASSWORD=secure_password
 ENV POSTGRES_DB=video_db
+ENV PATH="/usr/lib/postgresql/15/bin:$PATH"
 
 # Initialize PostgreSQL data directory using the full path to initdb
 RUN mkdir -p /var/lib/postgresql/data && \
@@ -22,7 +23,7 @@ RUN mkdir -p /var/lib/postgresql/data && \
 USER postgres
 
 # Use the full path to initdb to initialize PostgreSQL
-RUN /usr/lib/postgresql/15/bin/initdb -D /var/lib/postgresql/data
+RUN initdb -D /var/lib/postgresql/data
 
 # Create PostgreSQL user and database
 RUN pg_ctl -D /var/lib/postgresql/data -l logfile start && \
