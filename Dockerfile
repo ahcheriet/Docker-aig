@@ -46,15 +46,20 @@ ARG GH_TOKEN
 ARG GH_REPO
 RUN git clone https://${GH_TOKEN}@github.com/${GH_USER}/${GH_REPO}.git .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
 # Add the .local/bin to PATH
 ENV PATH="/home/guard/.local/bin:$PATH"
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose only the app's port
 EXPOSE 8000
 
 # Start PostgreSQL and the app
-CMD /usr/lib/postgresql/15/bin/pg_ctl -D /var/lib/postgresql/data -l logfile start && \
-    uvicorn app.main:app --host 0.0.0.0 --port 8000
+USER postgres
+
+CMD /usr/lib/postgresql/15/bin/pg_ctl -D /var/lib/postgresql/data start 
+
+USER guard
+
+CMD uvicorn app.main:app --host 0.0.0.0 --port 8000
