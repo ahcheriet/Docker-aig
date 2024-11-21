@@ -21,7 +21,7 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build --build-arg GH_USER=${{ secrets.GH_USER }} \
+        docker build --build-arg GH_USER=${{ secrets.GH_USERNAME }} \
                      --build-arg GH_TOKEN=${{ secrets.GH_TOKEN }} \
                      --build-arg GH_REPO=${{ secrets.GH_REPO }} \
                      -t ${{ secrets.DOCKERHUB_USERNAME }}/guard:latest .
