@@ -37,7 +37,8 @@ USER root
 # Create a new user for running the application
 RUN useradd -m guard
 USER guard
-WORKDIR /home/guard
+WORKDIR /home/guard/ai
+
 
 # Clone the private GitHub repository
 ARG GH_USER
