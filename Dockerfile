@@ -26,7 +26,7 @@ USER postgres
 RUN initdb -D /var/lib/postgresql/data
 
 # Create PostgreSQL user and database
-RUN pg_ctl -D /var/lib/postgresql/data -l ~./logfile start && \
+RUN pg_ctl -D /var/lib/postgresql/data start && \
     psql --command "CREATE USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';" && \
     psql --command "CREATE DATABASE $POSTGRES_DB OWNER $POSTGRES_USER;" && \
     pg_ctl -D /var/lib/postgresql/data stop
