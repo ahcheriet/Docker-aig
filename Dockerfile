@@ -14,15 +14,15 @@ ENV POSTGRES_USER=video_user
 ENV POSTGRES_PASSWORD=secure_password
 ENV POSTGRES_DB=video_db
 
-# Initialize PostgreSQL data directory
+# Initialize PostgreSQL data directory using the full path to initdb
 RUN mkdir -p /var/lib/postgresql/data && \
     chown -R postgres:postgres /var/lib/postgresql
 
 # Switch to the postgres user
 USER postgres
 
-# Dynamically resolve `initdb` path and initialize PostgreSQL
-RUN initdb -D /var/lib/postgresql/data
+# Use the full path to initdb to initialize PostgreSQL
+RUN /usr/lib/postgresql/13/bin/initdb -D /var/lib/postgresql/data
 
 # Create PostgreSQL user and database
 RUN pg_ctl -D /var/lib/postgresql/data -l logfile start && \
@@ -54,5 +54,5 @@ ENV PATH="/home/guard/.local/bin:$PATH"
 EXPOSE 8000
 
 # Start PostgreSQL and the app
-CMD pg_ctl -D /var/lib/postgresql/data -l logfile start && \
+CMD /usr/lib/postgresql/13/bin/pg_ctl -D /var/lib/postgresql/data -l logfile start && \
     uvicorn app.main:app --host 0.0.0.0 --port 8000
